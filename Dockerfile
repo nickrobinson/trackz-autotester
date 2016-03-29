@@ -9,4 +9,4 @@ RUN go get github.com/eclipse/paho.mqtt.golang
 RUN go get github.com/nickrobinson/trackz-autotester
 RUN go install github.com/nickrobinson/trackz-autotester
 
-CMD ["/go/bin/trackz-puller", "-server", "mqtt.isengard.io", "-port", "1883"]
+CMD ["/go/bin/trackz-autotester", "-server", "mqtt.isengard.io", "-port", "1883"]
