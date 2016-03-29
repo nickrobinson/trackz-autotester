@@ -9,6 +9,8 @@ import (
 	"time"
 	"io"
 	"io/ioutil"
+	"github.com/nickrobinson/trackz-puller/stations"
+	"encoding/json"
 )
 
 var (
@@ -61,9 +63,15 @@ func main() {
 
 	//Keep publishing messages to server continuously
 	for {
+		s := stations.Stations{
+			[]stations.StationInfo{
+				stations.StationInfo{"FooAP", "00:04:F2:80:21:BC", -34},
+			},
+		}
+		b, _ := json.Marshal(s)
 		Info.Print("Sending test message")
-		text := "test message"
-		token := client.Publish("/trackz-autotester/stations", 0, false, text)
+		text := string(b)
+		token := client.Publish("/nickrobi/0001/aps", 0, false, text)
 		token.Wait()
 		time.Sleep(5 * time.Second)
 	}
